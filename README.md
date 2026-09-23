@@ -1,4 +1,4 @@
-# ❤️‍🩹 Real-Time ECG Anomaly Detection using Rule-Based Signal Processing
+# Real-Time ECG Anomaly Detection using Rule-Based Signal Processing
 
 <p align="center">
   <img src="https://img.shields.io/badge/MATLAB-R2021b%2B-orange?style=for-the-badge&logo=mathworks&logoColor=white" alt="MATLAB"/>
