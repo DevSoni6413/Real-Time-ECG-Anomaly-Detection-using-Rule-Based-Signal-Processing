@@ -1,0 +1,62 @@
+t = linspace(0,5,5000); % time signal
+%generate signal
+a = generate_signal(t); 
+
+% noise signal containing mix of clean and noise signal
+mixed = noise_signal(a);
+% artifici
+
+% filtering signal
+filtered = filtered_signal(mixed);
+
+%peak detection
+[pks, locs] = peak_detection(filtered);
+
+peak_gaps = diff(locs)
+fs = 1000;
+RR = diff(locs)/fs
+BPM = 60/mean(RR)
+disp(BPM)
+
+% checking consistency of heartbeat
+variation = std(RR);
+disp(variation)
+
+if variation < 0.1
+    disp('Regular rhythm')
+else
+    disp('Irregular rhythm')
+end
+
+%threshold based detection
+anomaly = threshold_detection(filtered);
+
+subplot(5,1,1)
+plot(t, a, 'r-')
+title("CLEAN SIGNAL")
+xlabel("time")
+ylabel("Amplitude")
+subplot(5,1,2)
+plot(t, mixed, 'y-')
+title("MIXED SIGNAL")
+xlabel("time")
+ylabel("Amplitude")
+subplot(5,1,3)
+plot(t, filtered, 'g-')
+title("FILTERED SIGNAL")
+xlabel("time")
+ylabel("Amplitude")
+subplot(5,1,4)
+plot(t, filtered, 'b-')
+hold on
+plot(t(locs), pks, 'ro')
+title("FILT.. SIGNAL WITH PEAK DETECTION")
+xlabel("time")
+ylabel("Amplitude")
+subplot(5,1,5)
+plot(t, filtered, 'w-')
+hold on
+plot(t(anomaly), filtered(anomaly), 'bo')
+title("FILT.. SIGNAL WITH THRESHOLD BASED DETECTION")
+grid on
+hold off

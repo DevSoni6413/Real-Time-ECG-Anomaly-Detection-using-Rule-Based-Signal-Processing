@@ -1,0 +1,22 @@
+function ecg = generate_signal(t)
+    % for repeating the ecg heartbeat
+    x = mod(t,1); % creates 0-1 second interval 
+
+    % p wave
+    P = 0.25*exp(-((x-0.2).^2)/0.002);
+    
+    %q wave
+    Q = -0.15*exp(-((x-0.3).^2)/0.005);
+
+    % r wave
+    R = 1.5*exp(-((x-0.4).^2)/0.0001);
+    extra = 2*exp(-((x-0.75).^2)/0.0001);
+
+    % s wave
+    S = -0.35*exp(-((x-0.85).^2)/0.004);
+
+    % t wave
+    T = 0.4*exp(-((x-0.95).^2)/0.04);
+    ecg = P+Q+R+extra+S+T;
+
+end

@@ -1,0 +1,75 @@
+% practicing signal generation, noise generation, anomaly detection, and
+%% signal generation practising 
+% function practicing 
+t = linspace(0,1,100); % time signal
+a = 6*sin(2*pi*2*t);
+b = 4*cos(2*pi*2*t);
+plot(t,a,"r--")
+hold on
+plot(t,b,"c-")
+title("sin and cos wave")
+xlabel("time")
+ylabel("amplitude")
+legend('sin','cos')
+grid on
+hold off
+%% noise signal generation and clean signal , adding both and plotting
+%clean signal
+t = linspace(0,1,100); % time signal
+a = 2*sin(2*pi*5*t); % clean signal
+% noise = 0.5*randn(size(t)); %  gaussian noise signal
+noise = rand(size(t)) - 0.5;
+b = a + noise;
+subplot(3,1,1)
+plot(t,a,"r--")
+title("clean signal")
+xlabel("time")
+ylabel("amplitude")
+grid on
+subplot(3,1,2)
+plot(t,noise,"y--")
+title("Noise signal")
+xlabel("time")
+ylabel("amplitude")
+grid on
+subplot(3,1,3)
+plot(t,b,"g--")
+title("mix signal")
+xlabel("time")
+ylabel("amplitude")
+grid on
+%% filtering the mixed signals
+t =linspace(0,1,1000);
+a = 2*sin(2*pi*5*t); % clean signal
+noise = 0.5*randn(size(t)); % noise signal
+mixed = a + noise; % mixed signal
+filtered = movmean(mixed, 30); % filter signal
+subplot(4,1,1)
+plot(t,a,"r-")
+title("CLEAN SIGNAL")
+xlabel("time")
+ylabel("Amplitude")
+grid on
+subplot(4,1,2)
+plot(t,noise,"y-")
+title("NOISE SIGNAL")
+xlabel("time")
+ylabel("Amplitude")
+grid on
+subplot(4,1,3)
+plot(t, mixed, "g-")
+title("MIXED SIGNAL")
+xlabel("time")
+ylabel("Amplitude")
+grid on
+subplot(4,1,4)
+plot(t, filtered, "c--")
+title("FILTERED SIGNAL")
+xlabel("time")
+ylabel("Amplitude")
+grid on
+[pks,locs] = findpeaks(filtered);
+hold on
+plot(t(locs), pks, "ro")
+hold off
+
